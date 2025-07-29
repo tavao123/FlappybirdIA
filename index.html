@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐦 Flappy Bird Avançado - Termux Edition</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Jogo Flappy Bird avançado rodando no Termux">
+    <meta name="theme-color" content="#87CEEB">
+</head>
+<body>
+    <div class="container">
+        <!-- Tela de Menu Principal -->
+        <div id="menu-screen" class="screen active">
+            <div class="menu-content">
+                <h1 class="game-title">🐦 Flappy Bird</h1>
+                <p class="subtitle">Termux Edition</p>
+                <div class="menu-buttons">
+                    <button id="start-btn" class="menu-btn primary">🎮 Jogar</button>
+                    <button id="scores-btn" class="menu-btn">🏆 Recordes</button>
+                    <button id="settings-btn" class="menu-btn">⚙️ Configurações</button>
+                    <button id="about-btn" class="menu-btn">ℹ️ Sobre</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tela do Jogo -->
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <div class="score-display">
+                    <span id="current-score">0</span>
+                </div>
+                <div class="game-controls">
+                    <button id="pause-btn" class="control-btn">⏸️</button>
+                    <button id="home-btn" class="control-btn">🏠</button>
+                </div>
+            </div>
+            
+            <canvas id="game-canvas"></canvas>
+            
+            <div class="game-instructions">
+                <p>🖱️ Clique ou 🔲 Espaço para voar</p>
+            </div>
+        </div>
+
+        <!-- Tela de Game Over -->
+        <div id="gameover-screen" class="screen">
+            <div class="gameover-content">
+                <h2 class="gameover-title">💥 Game Over!</h2>
+                <div class="score-summary">
+                    <div class="score-item">
+                        <span class="score-label">Pontuação:</span>
+                        <span id="final-score" class="score-value">0</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-label">Melhor:</span>
+                        <span id="best-score" class="score-value">0</span>
+                    </div>
+                </div>
+                <div class="player-name-input">
+                    <input type="text" id="player-name" placeholder="Seu nome" maxlength="20">
+                </div>
+                <div class="gameover-buttons">
+                    <button id="restart-btn" class="menu-btn primary">🔄 Jogar Novamente</button>
+                    <button id="save-score-btn" class="menu-btn">💾 Salvar Recorde</button>
+                    <button id="menu-btn" class="menu-btn">🏠 Menu Principal</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tela de Recordes -->
+        <div id="scores-screen" class="screen">
+            <div class="scores-content">
+                <h2 class="screen-title">🏆 Melhores Recordes</h2>
+                <div id="scores-list" class="scores-list">
+                    <div class="loading">Carregando recordes...</div>
+                </div>
+                <div class="scores-buttons">
+                    <button id="clear-scores-btn" class="menu-btn danger">🗑️ Limpar Recordes</button>
+                    <button id="back-to-menu-btn" class="menu-btn">⬅️ Voltar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tela de Configurações -->
+        <div id="settings-screen" class="screen">
+            <div class="settings-content">
+                <h2 class="screen-title">⚙️ Configurações</h2>
+                <div class="settings-list">
+                    <div class="setting-item">
+                        <label for="difficulty-select">🎯 Dificuldade:</label>
+                        <select id="difficulty-select" class="setting-select">
+                            <option value="easy">Fácil</option>
+                            <option value="normal" selected>Normal</option>
+                            <option value="hard">Difícil</option>
+                            <option value="extreme">Extremo</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label for="sound-toggle">🔊 Som:</label>
+                        <input type="checkbox" id="sound-toggle" class="setting-toggle" checked>
+                    </div>
+                    <div class="setting-item">
+                        <label for="theme-select">🎨 Tema:</label>
+                        <select id="theme-select" class="setting-select">
+                            <option value="day" selected>Dia</option>
+                            <option value="night">Noite</option>
+                            <option value="sunset">Pôr do Sol</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="settings-buttons">
+                    <button id="reset-settings-btn" class="menu-btn danger">🔄 Resetar</button>
+                    <button id="back-from-settings-btn" class="menu-btn">⬅️ Voltar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tela Sobre -->
+        <div id="about-screen" class="screen">
+            <div class="about-content">
+                <h2 class="screen-title">ℹ️ Sobre o Jogo</h2>
+                <div class="about-text">
+                    <p><strong>🐦 Flappy Bird Avançado</strong></p>
+                    <p>Versão especial para Termux com recursos avançados:</p>
+                    <ul>
+                        <li>🎮 Múltiplos níveis de dificuldade</li>
+                        <li>🏆 Sistema de recordes</li>
+                        <li>🎨 Temas visuais variados</li>
+                        <li>📱 Otimizado para dispositivos móveis</li>
+                        <li>🌐 Funciona offline</li>
+                    </ul>
+                    <p><strong>Como Jogar:</strong></p>
+                    <ul>
+                        <li>Clique na tela ou pressione Espaço para voar</li>
+                        <li>Evite os canos verdes</li>
+                        <li>Tente conseguir a maior pontuação!</li>
+                    </ul>
+                    <p class="version">Versão 1.0 - Termux Edition</p>
+                </div>
+                <div class="about-buttons">
+                    <button id="back-from-about-btn" class="menu-btn">⬅️ Voltar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tela de Pausa -->
+        <div id="pause-screen" class="screen">
+            <div class="pause-content">
+                <h2 class="pause-title">⏸️ Jogo Pausado</h2>
+                <div class="pause-buttons">
+                    <button id="resume-btn" class="menu-btn primary">▶️ Continuar</button>
+                    <button id="restart-from-pause-btn" class="menu-btn">🔄 Reiniciar</button>
+                    <button id="menu-from-pause-btn" class="menu-btn">🏠 Menu Principal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p>Carregando Flappy Bird...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
